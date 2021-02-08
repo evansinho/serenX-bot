@@ -1,4 +1,5 @@
 import express from 'express';
+import "@babel/polyfill";
 import dotenv from 'dotenv';
 import Serenx from '../dbSchema.js';
 
