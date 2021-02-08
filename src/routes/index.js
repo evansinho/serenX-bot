@@ -26,14 +26,27 @@ router.post('/slack/serenx', async (req, res) => {
   }
 })
 
-// router.post('/slack/interactions', (req, res) => {
-//   res.status(200).send('');
+router.post('/slack/interactions', (req, res) => {
+  res.status(200).send('');
 
-//   const payload = JSON.parse(req.body.payload);
+  const payload = JSON.parse(req.body.payload);
 
-//   // view the payload on console
-//   console.log(payload);
-// });
+	if (payload.type === 'view_submission' && payload.view.callback_id === 'serenx') {
+    const { values } = payload.view.state;
+		console.log(values);
+    // const feeling = values.wA1W;
+    // const walk = values.walk.walk.value;
+		// const hobbies = values.Ghb;
+    // const digit = values.digit.digit.value;
+
+    // console.log({
+		// 	feelings,
+		// 	walk,
+		// 	hobbies,
+		// 	digit
+		// });
+  }
+});
 
 const messageJsonBlock = 
 {
@@ -60,45 +73,42 @@ const messageJsonBlock =
 			type: 'divider',
 		},
 		{
-			type: 'section',
-			text: {
-				type: 'mrkdwn',
+			type: 'input',
+			block_id: 'feeling',
+			label: {
+				type: 'plain_text',
 				text: 'Welcome. How are you doing?'
 			},
-			accessory: {
+			element: {
 				type: 'static_select',
+				action_id: 'feeling',
 				placeholder: {
 					type: 'plain_text',
-					text: 'Select an item',
-					emoji: true
+					text: 'Select an option'
 				},
 				options: [
 					{
 						text: {
 							type: 'plain_text',
-							text: 'Doing Well',
-							emoji: true
+							text: 'Doing Well'
 						},
 						value: 'Doing Well'
 					},
 					{
 						text: {
 							type: 'plain_text',
-							text: 'Neutral',
-							emoji: true
+							text: 'Neutral'
 						},
 						value: 'Neutral'
 					},
 					{
 						text: {
 							type: 'plain_text',
-							text: 'Feeling Lucky',
-							emoji: true
+							text: 'Feeling Lucky'
 						},
 						value: 'Feeling Lucky'
 					}
-				],
-				action_id: 'feelings'
+				]
 			}
 		},
 		{
@@ -120,52 +130,106 @@ const messageJsonBlock =
 				},
 			},
 		},
+		// {
+		// 	type: 'input',
+		// 	block_id: 'hobbies',
+		// 	label: {
+		// 		type: 'plain_text',
+		// 		text: 'What are your favorite hobbies'
+		// 	},
+		// 	element: {
+		// 		type: 'checkboxes',
+		// 		action_id: 'hobbies',
+		// 	},
+		// 	options: [
+		// 		{
+		// 			text: {
+		// 				type: 'plain_text',
+		// 				text: 'Football'
+		// 			},
+		// 			value: 'Football'
+		// 		},
+		// 		{
+		// 			text: {
+		// 				type: 'plain_text',
+		// 				text: 'Music'
+		// 			},
+		// 			value: 'Music'
+		// 		},
+		// 		{
+		// 			text: {
+		// 				type: 'plain_text',
+		// 				text: 'Sleep'
+		// 			},
+		// 			value: 'Sleep'
+		// 		},
+		// 		{
+		// 			text: {
+		// 				type: 'plain_text',
+		// 				text: 'Movies'
+		// 			},
+		// 			value: 'Movies'
+		// 		},
+		// 		{
+		// 			text: {
+		// 				type: 'plain_text',
+		// 				text: 'Basketball'
+		// 			},
+		// 			value: 'Basketball'
+		// 		}
+		// 	],
+		// },
 		{
-			type: 'section',
-			text: {
-				type: 'mrkdwn',
+			type: 'input',
+			block_id: 'hobbies',
+			label: {
+				type: 'plain_text',
 				text: 'What are your favorite hobbies'
 			},
-			accessory: {
-				type: 'checkboxes',
+			element: {
+				type: 'multi_static_select',
+				action_id: 'hobbies',
+				placeholder: {
+					type: 'plain_text',
+					text: 'Select an option'
+				},
 				options: [
-					{
+						{
 						text: {
-							type: 'mrkdwn',
-							text: 'Football'
+								type: 'plain_text',
+								text: 'Football'
+							},
+							value: 'Football'
 						},
-						value: 'Football'
-					},
-					{
-						text: {
-							type: 'mrkdwn',
-							text: 'Music'
+						{
+							text: {
+								type: 'plain_text',
+								text: 'Music'
+							},
+							value: 'Music'
 						},
-						value: 'Music'
-					},
-					{
-						text: {
-							type: 'mrkdwn',
-							text: 'Sleep'
+						{
+							text: {
+								type: 'plain_text',
+								text: 'Sleep'
+							},
+							value: 'Sleep'
 						},
-						value: 'Sleep'
-					},
-					{
-						text: {
-							type: 'mrkdwn',
-							text: 'Movies'
+						{
+							text: {
+								type: 'plain_text',
+								text: 'Movies'
+							},
+							value: 'Movies'
 						},
-						value: 'Movies'
-					},
-					{
-						text: {
-							type: 'mrkdwn',
-							text: 'Basketball'
-						},
-						value: 'Basketball'
-					}
-				],
-				action_id: 'hobbies'
+						{
+							text: {
+								type: 'plain_text',
+								text: 'Basketball'
+							},
+							value: 'Basketball'
+						}
+				]
 			}
 		},
 		{
