@@ -1,10 +1,19 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import Cors from 'cors';
 import bodyParser from 'body-parser';
 import routes from './routes/index.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+// db config
+mongoose.connect(Database, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+}).then(() => console.log( 'Database Connected' ))
+  .catch(err => console.log( err ));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

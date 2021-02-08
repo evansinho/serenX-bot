@@ -33,18 +33,23 @@ router.post('/slack/interactions', (req, res) => {
 
 	if (payload.type === 'view_submission' && payload.view.callback_id === 'serenx') {
     const { values } = payload.view.state;
-		console.log(values);
-    // const feeling = values.wA1W;
-    // const walk = values.walk.walk.value;
-		// const hobbies = values.Ghb;
-    // const digit = values.digit.digit.value;
 
-    // console.log({
-		// 	feelings,
-		// 	walk,
-		// 	hobbies,
-		// 	digit
-		// });
+    const feeling = values.feeling.feeling.selected_option.value;
+    const walk = values.walk.walk.value;
+		const hobArray = values.hobbies.hobbies.selected_options;
+    const digit = values.digit.digit.value;
+
+		let hobbies = [];
+		hobArray.forEach(hobby => {
+			hobbies.push(hobby.value);
+		})
+
+    console.log({
+			feeling,
+			walk,
+			hobbies,
+			digit
+		});
   }
 });
 
@@ -130,55 +135,6 @@ const messageJsonBlock =
 				},
 			},
 		},
-		// {
-		// 	type: 'input',
-		// 	block_id: 'hobbies',
-		// 	label: {
-		// 		type: 'plain_text',
-		// 		text: 'What are your favorite hobbies'
-		// 	},
-		// 	element: {
-		// 		type: 'checkboxes',
-		// 		action_id: 'hobbies',
-		// 	},
-		// 	options: [
-		// 		{
-		// 			text: {
-		// 				type: 'plain_text',
-		// 				text: 'Football'
-		// 			},
-		// 			value: 'Football'
-		// 		},
-		// 		{
-		// 			text: {
-		// 				type: 'plain_text',
-		// 				text: 'Music'
-		// 			},
-		// 			value: 'Music'
-		// 		},
-		// 		{
-		// 			text: {
-		// 				type: 'plain_text',
-		// 				text: 'Sleep'
-		// 			},
-		// 			value: 'Sleep'
-		// 		},
-		// 		{
-		// 			text: {
-		// 				type: 'plain_text',
-		// 				text: 'Movies'
-		// 			},
-		// 			value: 'Movies'
-		// 		},
-		// 		{
-		// 			text: {
-		// 				type: 'plain_text',
-		// 				text: 'Basketball'
-		// 			},
-		// 			value: 'Basketball'
-		// 		}
-		// 	],
-		// },
 		{
 			type: 'input',
 			block_id: 'hobbies',
