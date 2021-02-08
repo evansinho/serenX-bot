@@ -1,4 +1,5 @@
 import express from 'express';
+import Cors from 'cors';
 import bodyParser from 'body-parser';
 import routes from './routes/index.js';
 
@@ -7,9 +8,10 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(Cors());
 
 app.get('/', (req, res) => {
-    res.json({ message: 'Hello'})
+    res.json({ message: 'Welcome'})
 })
 
 app.use('/api', routes);
