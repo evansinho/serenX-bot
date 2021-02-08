@@ -2,8 +2,9 @@ import express from 'express';
 import "@babel/polyfill";
 import dotenv from 'dotenv';
 import Serenx from '../dbSchema.js';
+import pkg from '@slack/web-api';
 
-const { WebClient } = require('@slack/web-api');
+const { WebClient } = pkg;
 
 const router = express.Router();
 
