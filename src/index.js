@@ -26,7 +26,6 @@ app.use(Cors());
 app.get('/', (req, res) => {
     res.json({ message: 'Welcome'})
 })
-
 app.use('/api', routes);
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));
