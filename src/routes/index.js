@@ -1,5 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import Serenx from '../dbSchema.js';
+
 const { WebClient } = require('@slack/web-api');
 
 const router = express.Router();
@@ -26,31 +28,33 @@ router.post('/slack/serenx', async (req, res) => {
   }
 })
 
-router.post('/slack/interactions', (req, res) => {
-  res.status(200).send('');
+router.post('/slack/interactions', async (req, res) => {
+	try {
+			const payload = JSON.parse(req.body.payload);
+			const channel = 'C01MFFGAQ76'
+		
+		if (payload.type === 'view_submission' && payload.view.callback_id === 'serenx') {
+			const { values } = payload.view.state;
 
-  const payload = JSON.parse(req.body.payload);
+			res.status(200).send('');
 
-	if (payload.type === 'view_submission' && payload.view.callback_id === 'serenx') {
-    const { values } = payload.view.state;
+			web.chat.postMessage({channel, text: 'Thank You'})
 
-    const feeling = values.feeling.feeling.selected_option.value;
-    const walk = values.walk.walk.value;
-		const hobArray = values.hobbies.hobbies.selected_options;
-    const digit = values.digit.digit.value;
+			const feeling = values.feeling.feeling.selected_option.value;
+			const walk = values.walk.walk.value;
+			const hobArray = values.hobbies.hobbies.selected_options;
+			const digit = values.digit.digit.value;
 
-		let hobbies = [];
-		hobArray.forEach(hobby => {
-			hobbies.push(hobby.value);
-		})
+			let hobbies = [];
+			hobArray.forEach(hobby => {
+				hobbies.push(hobby.value);
+			})
 
-    console.log({
-			feeling,
-			walk,
-			hobbies,
-			digit
-		});
-  }
+			const data = await Serenx.create({feeling, walk, hobbies, digit})
+  	}
+	} catch(e) {
+		console.log(e)
+	}
 });
 
 const messageJsonBlock = 
