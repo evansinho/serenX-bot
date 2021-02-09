@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(Cors());
 
 app.get('/', (req, res) => {
-    res.json({ message: 'Welcome'})
+    res.status(200).json({ message: 'Welcome'})
 })
 
 app.use('/api', routes);
