@@ -7,6 +7,11 @@ A slack bot built with NodeJs.
 > [Heroku-serenX link](https://serenx-bot.herokuapp.com/).
 > [ApI documentation](https://app.getpostman.com/dpxy/collections/14516533-04ee0918-be4d-4693-a898-f8d18999cb64?workspace=254905b7-8d86-4e2f-842f-a90e4096dc02)
 
+## API routes
+1. `https://serenx-bot.herokuapp.com/`- Home route returns a welcome message
+2. `https://serenx-bot.herokuapp.com/slack/serenx`- triggers the slack bot with dash command.
+3. `https://serenx-bot.herokuapp.com/slack/interactions`- Returns with payload that contains users input.
+
 ## Required Features
 1. Trigger the bot using a slash command or "@bot".
 2. Saying "Hello @bot" or using the slack command should return a response to the user saying "Welcome. How are you doing?"
